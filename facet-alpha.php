@@ -124,10 +124,11 @@ class FacetWP_Facet_Alpha
     display: inline-block;
     color: #ddd;
     margin-right: 8px;
-    cursor: pointer;
+    cursor: default;
 }
 .facetwp-alpha.available {
     color: #333;
+    cursor: pointer;
 }
 .facetwp-alpha.selected {
     color: #333;
@@ -140,10 +141,13 @@ class FacetWP_Facet_Alpha
         FWP.facets[facet_name] = $this.find('.facetwp-alpha.selected').attr('data-id') || '';
     });
 
-    $(document).on('click', '.facetwp-alpha', function() {
-        $(this).closest('.facetwp-facet').find('.facetwp-alpha').removeClass('selected');
+    $(document).on('click', '.facetwp-alpha.available', function() {
+        $parent = $(this).closest('.facetwp-facet');
+        $parent.find('.facetwp-alpha').removeClass('selected');
         $(this).addClass('selected');
+        FWP.static_facet = $parent.attr('data-name');
         FWP.refresh();
+        FWP.static_facet = null;
     });
 })(jQuery);
 </script>

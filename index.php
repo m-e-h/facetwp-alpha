@@ -3,7 +3,7 @@
 Plugin Name: FacetWP - Alpha
 Plugin URI: https://facetwp.com/
 Description: Alphabetical letter facet
-Version: 1.0.1
+Version: 1.0.2
 Author: Matt Gibbs
 Author URI: https://facetwp.com/
 
