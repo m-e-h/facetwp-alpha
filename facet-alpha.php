@@ -17,47 +17,47 @@ class FacetWP_Facet_Alpha
 
         $output = '';
         $facet = $params['facet'];
-        $selected_values = $params['selected_values'];
+        $selected_values = (array) $params['selected_values'];
         $where_clause = $params['where_clause'];
         $where_clause = str_replace( 'post_id', 'ID', $where_clause );
 
         $sql = "
-        SELECT SUBSTR(post_title, 1, 1) AS thechar
+        SELECT DISTINCT LEFT(post_title, 1) AS letter
         FROM {$wpdb->posts}
-        WHERE 1 $where_clause";
+        WHERE 1 $where_clause
+        ORDER BY letter";
         $results = $wpdb->get_col( $sql );
 
         $available_chars = array( '#', 'A', 'B', 'C', 'D', 'E', 'F', 'G',
             'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
             'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' );
 
-        $output .= '<span class="facetwp-alpha available" data-id="">Any</span>';
+        $output .= '<span class="facetwp-alpha available" data-id="">' . __( 'Any', 'fwp' ) . '</span>';
 
         foreach ( $available_chars as $char ) {
-            if ( '#' == $char) {
-                $number_exists = false;
+            $match = false;
+            $active = in_array( $char, $selected_values );
 
-                foreach ( $results as $result ) {
-                    if ( in_array( $result, array( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ) ) ) {
-                        $number_exists = true;
+            if ( '#' == $char ) {
+                foreach ( array( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ) as $num ) {
+                    if ( in_array( (string) $num, $results ) ) {
+                        $match = true;
                         break;
                     }
                 }
+            }
+            elseif ( in_array( $char, $results ) ) {
+                $match = true;
+            }
 
-                if ( $number_exists ) {
-                    $output .= '<span class="facetwp-alpha available" data-id="#">#</span>';
-                }
-                else {
-                    $output .= '<span class="facetwp-alpha">#</span>';
-                }
+            if ( $active ) {
+                $output .= '<span class="facetwp-alpha selected" data-id="' . $char . '">' . $char . '</span>';
+            }
+            elseif ( $match ) {
+                $output .= '<span class="facetwp-alpha available" data-id="' . $char . '">' . $char . '</span>';
             }
             else {
-                if ( in_array( $char, $results ) ) {
-                    $output .= '<span class="facetwp-alpha available" data-id="' . $char . '">' . $char . '</span>';
-                }
-                else {
-                    $output .= '<span class="facetwp-alpha">' . $char . '</span>';
-                }
+                $output .= '<span class="facetwp-alpha" data-id="' . $char . '">' . $char . '</span>';
             }
         }
 
@@ -124,12 +124,13 @@ class FacetWP_Facet_Alpha
     display: inline-block;
     color: #ddd;
     margin-right: 8px;
+    cursor: pointer;
 }
 .facetwp-alpha.available {
     color: #333;
-    cursor: pointer;
 }
 .facetwp-alpha.selected {
+    color: #333;
     font-weight: bold;
 }
 </style>
@@ -139,7 +140,8 @@ class FacetWP_Facet_Alpha
         FWP.facets[facet_name] = $this.find('.facetwp-alpha.selected').attr('data-id') || '';
     });
 
-    $(document).on('click', '.facetwp-alpha.available', function() {
+    $(document).on('click', '.facetwp-alpha', function() {
+        $(this).closest('.facetwp-facet').find('.facetwp-alpha').removeClass('selected');
         $(this).addClass('selected');
         FWP.refresh();
     });
