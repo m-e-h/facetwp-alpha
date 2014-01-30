@@ -6,6 +6,8 @@ Description: Alphabetical letter facet
 Version: 1.0.2
 Author: Matt Gibbs
 Author URI: https://facetwp.com/
+GitHub Plugin URI: https://github.com/mgibbs189/facetwp-alpha
+GitHub Branch: 1.0.2
 
 Copyright 2014 Matt Gibbs
 
