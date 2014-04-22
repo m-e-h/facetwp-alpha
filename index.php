@@ -3,11 +3,11 @@
 Plugin Name: FacetWP - Alpha
 Plugin URI: https://facetwp.com/
 Description: Alphabetical letter facet
-Version: 1.0.2
+Version: 1.0.3
 Author: Matt Gibbs
 Author URI: https://facetwp.com/
 GitHub Plugin URI: https://github.com/mgibbs189/facetwp-alpha
-GitHub Branch: 1.0.2
+GitHub Branch: 1.0.3
 
 Copyright 2014 Matt Gibbs
 
