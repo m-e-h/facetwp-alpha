@@ -147,18 +147,9 @@ class FacetWP_Facet_Alpha
         $(this).addClass('selected');
         FWP.static_facet = $parent.attr('data-name');
         FWP.refresh();
-        FWP.static_facet = null;
     });
 })(jQuery);
 </script>
 <?php
-    }
-
-
-    /**
-     * Output admin settings HTML
-     */
-    function settings_html() {
-
     }
 }
