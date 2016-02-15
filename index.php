@@ -4,9 +4,10 @@ Plugin Name: FacetWP - Alpha
 Plugin URI: https://facetwp.com/
 Description: Alphabetical letter facet
 Version: 1.0.3
-Author: Matt Gibbs
+Author: Matt Gibbs & Marty
 Author URI: https://facetwp.com/
-GitHub Plugin URI: https://github.com/FacetWP/facetwp-alpha
+GitHub Plugin URI: https://github.com/m-e-h/facetwp-alpha
+GitHub Branch: slug
 
 Copyright 2014 Matt Gibbs
 
