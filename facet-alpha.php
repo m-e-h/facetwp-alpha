@@ -22,7 +22,7 @@ class FacetWP_Facet_Alpha
         $where_clause = str_replace( 'post_id', 'ID', $where_clause );
 
         $sql = "
-        SELECT DISTINCT UPPER(LEFT(post_title, 1)) AS letter
+        SELECT DISTINCT UPPER(LEFT(post_name, 1)) AS letter
         FROM {$wpdb->posts}
         WHERE 1 $where_clause
         ORDER BY letter";
@@ -83,7 +83,7 @@ class FacetWP_Facet_Alpha
 
         $sql = "
         SELECT DISTINCT ID FROM {$wpdb->posts}
-        WHERE UPPER(SUBSTR(post_title, 1, 1)) IN ('$selected_values')";
+        WHERE UPPER(SUBSTR(post_name, 1, 1)) IN ('$selected_values')";
         return $wpdb->get_col( $sql );
     }
 
